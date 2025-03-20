@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 import CommunityHero from '../components/Community/CommunityHero';
 import RecentPosts from '../components/Community/RecentPosts';
-import Footer from '../components/Footer/Footer';
+import Navbar from '../components/HomePage/Navbar';
 
 const CommunityPage = () => {
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ const CommunityPage = () => {
       <Navbar />
       <CommunityHero />
       <RecentPosts />
-      <Footer />
     </>
   );
 };

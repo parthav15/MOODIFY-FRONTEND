@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
 import LiveEmotionDetection from '../components/MusicRecommendation/LiveEmotionDetection';
 import MusicPlayer from './MusicPlayer';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/HomePage/Navbar';
 
 const MusicRecommendation = () => {
     const [imageFile, setImageFile] = useState(null);
@@ -205,7 +204,6 @@ const MusicRecommendation = () => {
                     </div>
                 </motion.div>
             </div>
-            <Footer />
             <ToastContainer
                 position="top-right"
                 autoClose={3000}

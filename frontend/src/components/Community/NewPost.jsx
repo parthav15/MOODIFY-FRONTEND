@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
+import Navbar from "../HomePage/Navbar";
 
 const BASE_URL = "http://localhost:8000";
 const API_URL = `${BASE_URL}/community/create_post/`;
@@ -66,7 +65,7 @@ export default function NewPost() {
 
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <div className="min-h-screen bg-gradient-to-r from-[#6a0dad] to-[#b19cd9] flex flex-col justify-center items-center">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -154,7 +153,6 @@ export default function NewPost() {
                     </div>
                 </motion.div>
             </div>
-            <Footer />
             <ToastContainer 
                 position="top-right"
                 autoClose={2000}

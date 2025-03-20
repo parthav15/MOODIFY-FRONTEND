@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowUturnLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import Navbar from "../HomePage/Navbar";
 
 const BASE_URL = 'http://localhost:8000/';
 
@@ -245,7 +244,6 @@ const PostDetail = () => {
                     )}
                 </div>
             </main>
-            <Footer />
         </>
     );
 };

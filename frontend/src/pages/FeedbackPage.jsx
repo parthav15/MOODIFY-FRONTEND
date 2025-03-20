@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
+import Navbar from "../components/HomePage/Navbar";
 
 const BASE_URL = "http://localhost:8000";
 
@@ -207,7 +206,6 @@ const FeedbackForm = () => {
                     </div>
                 </motion.div>
             </div>
-            <Footer />
             <ToastContainer 
                 position="top-right"
                 autoClose={2000}

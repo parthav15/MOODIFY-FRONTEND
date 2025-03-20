@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
+import Navbar from "../components/HomePage/Navbar";
 
 const LoginRegister = () => {
     const navigate = useNavigate();
@@ -244,7 +243,6 @@ const LoginRegister = () => {
                     </div>
                 </motion.div>
             </div>
-            <Footer />
         </>
     );
 };

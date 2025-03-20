@@ -1,8 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Dashboard/Sidebar';
+import Navbar from '../components/HomePage/Navbar';
 
 const DashboardLayout = () => {
   return (
@@ -14,7 +13,6 @@ const DashboardLayout = () => {
           <Outlet />
         </main>
       </div>
-      <Footer />
     </div>
   );
 };
