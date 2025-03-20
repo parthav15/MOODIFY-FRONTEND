@@ -3,9 +3,12 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { Star, Mail, Sparkles, MessageCircle } from "lucide-react";
 import Navbar from "../components/HomePage/Navbar";
+import Footer from "../components/HomePage/Footer";
 
 const BASE_URL = "http://localhost:8000";
+
 
 const FeedbackForm = () => {
     const [formData, setFormData] = useState({
@@ -34,7 +37,7 @@ const FeedbackForm = () => {
         setIsSubmitting(true);
 
         const token = localStorage.getItem("token");
-        
+
         if (!token) {
             setError("Authentication required. Please log in.");
             setIsSubmitting(false);
@@ -96,71 +99,112 @@ const FeedbackForm = () => {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen bg-gradient-to-r from-[#6a0dad] to-[#b19cd9] flex flex-col justify-center items-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="container mx-auto p-8 flex flex-col items-center"
-                >
-                    <div className="w-full max-w-2xl bg-white/10 backdrop-blur-lg p-10 rounded-xl shadow-lg border border-white/20">
-                        <motion.h1
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5 }}
-                            className="text-3xl font-extrabold text-white text-center mb-8"
-                        >
-                            Share Your Feedback
-                        </motion.h1>
+            <div className="h-15"/>
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+                {/* Floating Particles Background */}
+                <div className="absolute inset-0 z-0">
+                    {[...Array(30)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute w-1 h-1 bg-purple-400 rounded-full"
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`
+                            }}
+                            animate={{
+                                scale: [0.5, 1, 0.5],
+                                opacity: [0.3, 0.8, 0.3],
+                                x: Math.random() * 100 - 50,
+                                y: Math.random() * 100 - 50
+                            }}
+                            transition={{
+                                duration: 4 + Math.random() * 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    ))}
+                </div>
+
+                <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-slate-900/50 backdrop-blur-xl rounded-3xl p-8 border border-purple-500/20 hover:border-purple-500/40 transition-all shadow-2xl shadow-purple-900/20"
+                    >
+                        <div className="text-center mb-8">
+                            <div className="inline-flex items-center gap-2 bg-purple-500/10 px-6 py-2 rounded-full border border-purple-500/20 mb-4">
+                                <Sparkles className="h-5 w-5 text-purple-400" />
+                                <span className="text-sm font-semibold text-purple-400">
+                                    Share Your Experience
+                                </span>
+                            </div>
+                            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                                Shape Our Future
+                            </h1>
+                        </div>
 
                         <motion.form
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5 }}
                             onSubmit={handleSubmit}
-                            className="space-y-4"
+                            className="space-y-6"
                         >
-                            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+                            {error && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="p-3 bg-gradient-to-r from-red-500/20 to-pink-500/10 rounded-lg border border-red-500/30 text-red-400 text-sm text-center"
+                                >
+                                    {error}
+                                </motion.div>
+                            )}
 
-                            <div>
-                                <label className="block text-white text-sm font-medium mb-1">Rating</label>
-                                <div className="flex space-x-2">
+                            <div className="space-y-2">
+                                <label className="text-purple-300 text-sm font-medium flex items-center gap-2">
+                                    <Star className="h-5 w-5" />
+                                    Rating
+                                </label>
+                                <div className="flex justify-center gap-2">
                                     {[1, 2, 3, 4, 5].map((star) => (
-                                        <button
-                                            type="button"
+                                        <motion.button
                                             key={star}
+                                            type="button"
                                             onClick={() => handleRating(star)}
                                             onMouseEnter={() => setHoverRating(star)}
                                             onMouseLeave={() => setHoverRating(0)}
-                                            className="focus:outline-none"
+                                            whileHover={{ scale: 1.2 }}
+                                            className={`p-2 rounded-full transition-all ${(hoverRating || formData.rating) >= star
+                                                    ? 'bg-gradient-to-r from-purple-400 to-pink-400'
+                                                    : 'bg-slate-800/50 border border-purple-500/20'
+                                                }`}
                                             disabled={isSubmitting}
                                         >
-                                            <svg
-                                                className={`w-8 h-8 transition-colors ${
-                                                    (hoverRating || formData.rating) >= star
-                                                        ? "text-yellow-400"
-                                                        : "text-gray-300"
-                                                }`}
+                                            <Star
+                                                className={`h-6 w-6 ${(hoverRating || formData.rating) >= star
+                                                        ? 'text-white'
+                                                        : 'text-purple-500/50'
+                                                    }`}
                                                 fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                            </svg>
-                                        </button>
+                                            />
+                                        </motion.button>
                                     ))}
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-white text-sm font-medium mb-1">Your Feedback</label>
+                            <div className="space-y-2">
+                                <label className="text-purple-300 text-sm font-medium flex items-center gap-2">
+                                    <MessageCircle className="h-5 w-5" />
+                                    Your Feedback
+                                </label>
                                 <textarea
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
                                     rows="4"
-                                    className="w-full px-4 py-2 bg-white border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                    placeholder="We'd love to hear your thoughts..."
+                                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-gray-300 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30 placeholder-purple-300/50"
+                                    placeholder="We value your thoughts and suggestions..."
                                     disabled={isSubmitting}
                                 />
                             </div>
@@ -168,56 +212,57 @@ const FeedbackForm = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="w-full bg-[#6a0dad] hover:bg-[#5c0d8e] text-white py-2 px-4 rounded-lg font-bold text-lg transition-all disabled:opacity-50"
+                                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all disabled:opacity-50"
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                {isSubmitting ? "Submitting..." : "Submit Feedback"}
+                                <Sparkles className="h-5 w-5" />
+                                {isSubmitting ? "Sending..." : "Submit Feedback"}
                             </motion.button>
                         </motion.form>
 
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="mt-8 bg-white/10 p-6 rounded-xl backdrop-blur-sm"
+                            className="mt-8 p-6 bg-slate-900/50 backdrop-blur-lg rounded-xl border border-purple-500/20"
                         >
-                            <div className="text-white space-y-3">
-                                <h3 className="text-xl font-bold mb-2">Need Help?</h3>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="w-6 h-6 mr-2"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                        />
-                                    </svg>
-                                    support@jobsphere.ai
-                                </div>
+                            <div className="text-purple-300 space-y-4">
+                                <h3 className="text-lg font-bold flex items-center gap-2">
+                                    <Mail className="h-5 w-5" />
+                                    Need Assistance?
+                                </h3>
+                                <p className="text-sm">
+                                    Reach out to our support team at{" "}
+                                    <span className="text-purple-400 hover:underline">
+                                        support@moodify.com
+                                    </span>
+                                </p>
                             </div>
                         </motion.div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
+
+                {/* Add Footer */}
+                <Footer />
+
+                <ToastContainer
+                    position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    toastStyle={{
+                        background: 'rgba(30, 30, 45, 0.95)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        backdropFilter: 'blur(12px)',
+                        color: '#e9d5ff'
+                    }}
+                />
             </div>
-            <ToastContainer 
-                position="top-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                toastStyle={{ backgroundColor: '#00796b', color: 'white' }}
-            />
         </>
     );
 };

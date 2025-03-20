@@ -11,6 +11,7 @@ import NewPost from './components/Community/NewPost';
 import MusicRecommendation from './pages/MusicRecommendation';
 import DashboardPage from './pages/DashboardPage';
 import Profile from './components/Dashboard/Profile';
+import AboutUsPage from './pages/AboutUsPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/community/posts/:id" element={<PostDetail />} />
 
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
         <Route path="/recommendation" element={<MusicRecommendation />} />
       </Routes>
